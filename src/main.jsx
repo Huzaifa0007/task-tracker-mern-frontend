@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { Toaster } from "react-hot-toast";
+import "@fontsource/inter";
 
 import App from "./App";
 import theme from "./theme/theme";

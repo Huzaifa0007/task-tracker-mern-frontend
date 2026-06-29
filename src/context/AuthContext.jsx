@@ -17,6 +17,8 @@ function AuthProvider({ children }) {
     localStorage.setItem("token", res.data.token);
 
     setUser(res.data);
+
+    return res;
   };
 
   const register = async (data) => {
@@ -25,6 +27,8 @@ function AuthProvider({ children }) {
     localStorage.setItem("token", res.data.token);
 
     setUser(res.data);
+
+    return res;
   };
 
   const logout = () => {
