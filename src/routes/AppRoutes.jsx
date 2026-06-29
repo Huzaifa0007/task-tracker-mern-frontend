@@ -5,6 +5,8 @@ import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 import NotFound from "../pages/NotFound";
 
+import ProtectedRoute from "../components/common/ProtectedRoute";
+
 function AppRoutes() {
   return (
     <Routes>
@@ -12,7 +14,14 @@ function AppRoutes() {
 
       <Route path="/register" element={<Register />} />
 
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
 
       <Route path="*" element={<NotFound />} />
     </Routes>
