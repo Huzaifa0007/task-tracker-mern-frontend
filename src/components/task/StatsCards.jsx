@@ -3,15 +3,24 @@ import { Grid, Paper, Typography } from "@mui/material";
 function Card({ title, value, color }) {
   return (
     <Paper
-      elevation={3}
+      elevation={5}
       sx={{
-        p: 3,
+        p: 4,
+        borderRadius: 4,
         borderLeft: `6px solid ${color}`,
+        transition: "all .3s ease",
+        cursor: "pointer",
+        "&:hover": {
+          transform: "translateY(-6px)",
+          boxShadow: 10,
+        },
       }}
     >
-      <Typography color="text.secondary">{title}</Typography>
+      <Typography variant="body1" color="text.secondary" sx={{ mb: 1 }}>
+        {title}
+      </Typography>
 
-      <Typography variant="h4" fontWeight={700}>
+      <Typography variant="h3" fontWeight={700}>
         {value}
       </Typography>
     </Paper>
@@ -21,27 +30,27 @@ function Card({ title, value, color }) {
 function StatsCards({ tasks }) {
   const total = tasks.length;
 
-  const pending = tasks.filter((t) => t.status === "Pending").length;
+  const pending = tasks.filter((task) => task.status === "Pending").length;
 
-  const progress = tasks.filter((t) => t.status === "In Progress").length;
+  const progress = tasks.filter((task) => task.status === "In Progress").length;
 
-  const completed = tasks.filter((t) => t.status === "Completed").length;
+  const completed = tasks.filter((task) => task.status === "Completed").length;
 
   return (
-    <Grid container spacing={3} mb={3}>
-      <Grid size={{ xs: 12, md: 3 }}>
+    <Grid container spacing={4} mb={4}>
+      <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
         <Card title="Total Tasks" value={total} color="#2563eb" />
       </Grid>
 
-      <Grid size={{ xs: 12, md: 3 }}>
+      <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
         <Card title="Pending" value={pending} color="#f59e0b" />
       </Grid>
 
-      <Grid size={{ xs: 12, md: 3 }}>
+      <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
         <Card title="In Progress" value={progress} color="#0ea5e9" />
       </Grid>
 
-      <Grid size={{ xs: 12, md: 3 }}>
+      <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
         <Card title="Completed" value={completed} color="#22c55e" />
       </Grid>
     </Grid>

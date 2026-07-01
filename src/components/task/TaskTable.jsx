@@ -1,11 +1,11 @@
 import {
-  Card,
-  CardContent,
   Chip,
   IconButton,
+  Paper,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Typography,
@@ -15,58 +15,81 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 function TaskTable({ tasks, handleEdit, handleDelete }) {
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "Completed":
+        return "success";
+      case "In Progress":
+        return "info";
+      default:
+        return "warning";
+    }
+  };
+
+  const getPriorityColor = (priority) => {
+    switch (priority) {
+      case "High":
+        return "error";
+      case "Medium":
+        return "warning";
+      default:
+        return "success";
+    }
+  };
+
   return (
-    <Card>
-      <CardContent>
-        <Table>
-          <TableHead>
+    <TableContainer component={Paper} sx={{ borderRadius: 3 }}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>
+              <strong>Title</strong>
+            </TableCell>
+            <TableCell>
+              <strong>Description</strong>
+            </TableCell>
+            <TableCell>
+              <strong>Status</strong>
+            </TableCell>
+            <TableCell>
+              <strong>Priority</strong>
+            </TableCell>
+            <TableCell>
+              <strong>Due Date</strong>
+            </TableCell>
+            <TableCell align="center">
+              <strong>Actions</strong>
+            </TableCell>
+          </TableRow>
+        </TableHead>
+
+        <TableBody>
+          {tasks.length === 0 ? (
             <TableRow>
-              <TableCell>Title</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Priority</TableCell>
-              <TableCell>Due Date</TableCell>
-              <TableCell align="center">Actions</TableCell>
+              <TableCell colSpan={6} align="center">
+                <Typography py={4}>No tasks found.</Typography>
+              </TableCell>
             </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {tasks.length === 0 && (
-              <TableRow>
-                <TableCell colSpan={5} align="center">
-                  <Typography py={5} align="center" color="text.secondary">
-                    No tasks found.
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            )}
-
-            {tasks.map((task) => (
-              <TableRow key={task._id}>
+          ) : (
+            tasks.map((task) => (
+              <TableRow key={task._id} hover>
                 <TableCell>{task.title}</TableCell>
+
+                <TableCell sx={{ maxWidth: 250 }}>
+                  {task.description || "-"}
+                </TableCell>
 
                 <TableCell>
                   <Chip
                     label={task.status}
-                    color={
-                      task.status === "Completed"
-                        ? "success"
-                        : task.status === "Pending"
-                          ? "warning"
-                          : "info"
-                    }
+                    color={getStatusColor(task.status)}
                   />
                 </TableCell>
 
                 <TableCell>
                   <Chip
                     label={task.priority}
-                    color={
-                      task.priority === "High"
-                        ? "error"
-                        : task.priority === "Medium"
-                          ? "warning"
-                          : "success"
-                    }
+                    color={getPriorityColor(task.priority)}
                   />
                 </TableCell>
 
@@ -77,7 +100,7 @@ function TaskTable({ tasks, handleEdit, handleDelete }) {
                 </TableCell>
 
                 <TableCell align="center">
-                  <IconButton onClick={() => handleEdit(task)}>
+                  <IconButton color="primary" onClick={() => handleEdit(task)}>
                     <EditIcon />
                   </IconButton>
 
@@ -89,11 +112,11 @@ function TaskTable({ tasks, handleEdit, handleDelete }) {
                   </IconButton>
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
+            ))
+          )}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
 

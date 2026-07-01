@@ -5,7 +5,7 @@ import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 import NotFound from "../pages/NotFound";
 import Profile from "../pages/Profile";
-
+import MyTasks from "../pages/MyTasks";
 import ProtectedRoute from "../components/common/ProtectedRoute";
 
 function AppRoutes() {
@@ -15,6 +15,14 @@ function AppRoutes() {
 
       <Route path="/register" element={<Register />} />
 
+      <Route
+        path="/tasks"
+        element={
+          <ProtectedRoute>
+            <MyTasks />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/dashboard"
         element={
