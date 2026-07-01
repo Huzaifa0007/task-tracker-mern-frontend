@@ -4,6 +4,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 import NotFound from "../pages/NotFound";
+import Profile from "../pages/Profile";
 
 import ProtectedRoute from "../components/common/ProtectedRoute";
 
@@ -24,6 +25,15 @@ function AppRoutes() {
       />
 
       <Route path="*" element={<NotFound />} />
+
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }
